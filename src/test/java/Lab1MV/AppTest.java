@@ -73,6 +73,70 @@ public class AppTest
         assertTrue(studentCountBeforeAdd < newStudentsCount);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void addStudentWithNullEmailTest() {
+        StudentValidator vs=new StudentValidator();
+        TemaLabValidator vt=new TemaLabValidator();
+        NotaValidator vn=new NotaValidator();
+        StudentXMLRepo strepo=new StudentXMLRepo(vs,"StudentiXML.xml");
+        TemaLabXMLRepo tmrepo=new TemaLabXMLRepo(vt,"TemaLaboratorXML.xml");
+        NotaXMLRepo ntrepo=new NotaXMLRepo(vn,"NotaXML.xml");
+        StudentXMLService stsrv=new StudentXMLService(strepo);
+
+        Integer studentCountBeforeAdd = stsrv.getSize();
+
+        String nume,grupa,prof;
+
+        nume = "AndreiAlex";
+        grupa = "935";
+        prof = "Profesor";
+
+        Integer newStudentsCount = 0;
+
+        String[] params= {"98213",nume,grupa,null,prof};
+        try{
+            stsrv.add(params);
+            newStudentsCount = stsrv.getSize();
+        }catch (ValidatorException ex){
+            assertTrue(false);
+        }
+
+        assertTrue(studentCountBeforeAdd < newStudentsCount);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void addStudentWithEmptyEmailTest() {
+        StudentValidator vs=new StudentValidator();
+        TemaLabValidator vt=new TemaLabValidator();
+        NotaValidator vn=new NotaValidator();
+        StudentXMLRepo strepo=new StudentXMLRepo(vs,"StudentiXML.xml");
+        TemaLabXMLRepo tmrepo=new TemaLabXMLRepo(vt,"TemaLaboratorXML.xml");
+        NotaXMLRepo ntrepo=new NotaXMLRepo(vn,"NotaXML.xml");
+        StudentXMLService stsrv=new StudentXMLService(strepo);
+
+        Integer studentCountBeforeAdd = stsrv.getSize();
+
+        String nume,grupa,email,prof;
+
+        nume = "AndreiAlex";
+        grupa = "935";
+        prof = "Profesor";
+
+        Integer newStudentsCount = 0;
+
+        String[] params= {"12312",nume,grupa,"",prof};
+        try{
+            stsrv.add(params);
+            newStudentsCount = stsrv.getSize();
+        }catch (ValidatorException ex){
+            assertTrue(false);
+        }
+
+        assertTrue(studentCountBeforeAdd < newStudentsCount);
+    }
+
+
+
     @Test
     public void addHomeworkTest() {
 
