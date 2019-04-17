@@ -94,7 +94,7 @@ public class IntegrationTests {
     }
 
     @Test(expected = NullPointerException.class)
-    public void addNotaTest() {
+    public void addGradeTest() {
         ntsrv.depunctare(tmsrv, "9990", "1");
         assertTrue(true);
     }
@@ -103,6 +103,6 @@ public class IntegrationTests {
     public void testAll() {
         addStudentTest();
         addHomeworkTest();
-        addNotaTest();
+        addGradeTest();
     }
 }
